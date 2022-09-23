@@ -3537,10 +3537,31 @@
 		system-status {
 			label = "status";
 			gpios = <0x21 0x1d 0x00>;
-			linux,default-trigger = "heartbeat";
+		        linux,default-trigger = "heartbeat";
 		};
 	};
-
+	
+	gpio-keys {
+		compatible = "gpio-keys";
+		autorepeat;
+		pinctrl-names = "default";
+                pinctrl-0 = <0x155>;
+	
+		power {
+                        debounce-interval = <0x64>;
+			gpios = <0x24 0x0f 0x01>;
+			label = "GPIO Key Power";
+			wakeup-source;
+		};
+	};
+	
+	buttons {
+		
+		pwrbtn {
+			rockchip,pins = <0x00 0x0f 0x00 0xbf>;
+			phandle = <0x155>;
+		};
+	};
 	__symbols__ {
 		cpu_l0 = "/cpus/cpu@0";
 		cpu_l1 = "/cpus/cpu@1";
@@ -3858,6 +3879,7 @@
 		bt_wake_l = "/pinctrl/bt/bt-wake-l";
 		power_led_gpio = "/pinctrl/leds/power_led_gpio";
 		status_led_gpio = "/pinctrl/leds/status_led_gpio";
+                pwrbtn = "/pinctrl/buttons/pwrbtn";
 		pmic_int_l = "/pinctrl/pmic/pmic-int-l";
 		vsel1_pin = "/pinctrl/pmic/vsel1-pin";
 		vsel2_pin = "/pinctrl/pmic/vsel2-pin";
